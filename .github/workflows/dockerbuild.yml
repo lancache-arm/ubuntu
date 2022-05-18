@@ -14,4 +14,4 @@ jobs:
         with:
           version: latest
       - run: docker login --username rossmaclean --password ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: docker buildx build --platform linux/arm64 -t rossmaclean/ubuntu-arm:latest --push .
+      - run: docker buildx build --platform linux/amd64,linux/arm64 -t rossmaclean/lancache-ubuntu:latest --push .
