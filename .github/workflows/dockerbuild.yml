@@ -1,0 +1,17 @@
+name: Build and push image
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build_push_image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - run: docker login --username rossmaclean --password ${{ secrets.DOCKERHUB_TOKEN }}
+      - run: docker buildx build --platform linux/arm64 -t rossmaclean/ubuntu-arm:latest --push .
